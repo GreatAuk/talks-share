@@ -1,0 +1,16 @@
+{
+  "name": "talks-share",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build *.md",
+    "dev": "slidev slides2.md --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.11.2",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.26"
+  }
+}
