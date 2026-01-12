@@ -74,11 +74,13 @@ Skills 类似于为 AI 助手提供的"专业培训"。通过 Skill，您可以�
 
 # Agent Skills 现状
 
-2025-12-18，Anthropic 已为 Agent Skills 定义了[开放标准](https://agentskills.io/home)，托管在 agentskills.io 上。类似 MCP 的标准化路径，这意味着其他 AI coding agents 也可以支持 Agent Skills，并且社区贡献，复用会更加方便。
+<div />
 
-目前，cursor(beta)， gemini cli， vs code copilot， codex， CodeBuddy(腾讯)， opencode 已跟进进支持。 相信国内的 AI coding agents 后期也会像支持 MCP 一样跟进支持 Agent Skills。
+2025-12-18，Anthropic 已为 Agent Skills 定义了[开放标准](https://agentskills.io/home)，托管在 [agentskills.io](https://agentskills.io/home) 上。类似 MCP 的标准化路径，这意味着其他 AI coding agent 也可以使用 Agent Skills，并且社区贡献，复用会更加方便。
 
-如果你目前使用的 AI coding agents 暂不支持 Skills，通过安装 [OpenSkills](https://github.com/numman-ali/openskills) 也可以使用 Agent Skills。
+目前，cursor(beta)， gemini cli， vs code copilot， codex， CodeBuddy(腾讯)， opencode 已跟进支持。 相信国内的 AI coding agent 后期也会像支持 MCP 一样跟进支持 Agent Skills。
+
+如果你目前使用的 AI coding agent 暂不支持 Skills，通过安装 [OpenSkills](https://github.com/numman-ali/openskills) 也可以使用 Agent Skills。
 
 ---
 
@@ -92,11 +94,17 @@ Skills 类似于为 AI 助手提供的"专业培训"。通过 Skill，您可以�
 
 ## 目录结构
 
-![image-20260109145923519](https://utopia1994.oss-cn-shanghai.aliyuncs.com/img-bed/202601091459622.png)
+```
+my-skill/
+├── SKILL.md          # 必需: 元数据 + 指令
+├── scripts/          # 可选: 可执行代码，AI 直接运行的固定脚本程序（脚本代码本身不进 Context Window，只有脚本运行完成后的输出结果会进 Agent 的 Context。）
+├── references/       # 可选: 参考文档，给 AI 看的技术规范，API 文档，专业指南
+└── assets/           # 可选: 素材资源，拿来用的，会被复制，修改，如图片，excel 模板
+```
 
 ---
 
-# 示例：pdf 专家
+# 示例：pdf 文件处理
 
 <div />
 
@@ -104,24 +112,28 @@ Skills 类似于为 AI 助手提供的"专业培训"。通过 Skill，您可以�
 
 ```md
 ---
-name: pdf
-description: PDF 文档处理专家
+name: pdf-processing
+description: Extract text, fill forms, merge PDFs. Use when working with PDF files, forms, or document extraction.
 ---
 
-你是一个 PDF 文档处理专家，擅长：
-- 解析和提取 PDF 内容
-- 转换 PDF 为其他格式
-- 生成 PDF 报告
+## Quick start
 
-当用户需要处理 PDF 相关任务时，请使用以下工作流：
-1. 首先检查 PDF 文件是否存在
-2. 使用适当的工具提取内容
-3. 根据需求进行处理
-4. 生成结果报告
+Extract text:
 
-可用工具：
-- pdftotext：提取文本内容
-- pdfinfo：获取 PDF 信息
+import pdfplumber
+with pdfplumber.open("doc.pdf") as pdf:
+    text = pdf.pages[0].extract_text()
+
+
+For form filling, see [FORMS.md](references/FORMS.md).
+For detailed API reference, see [REFERENCE.md](references/REFERENCE.md).
+
+## Requirements
+
+Packages must be installed in your environment:
+
+pip install pypdf pdfplumber
+
 ```
 
 ---
@@ -133,9 +145,9 @@ description: PDF 文档处理专家
 | `name`          | 是   | Skill 名称,未指定时使用目录名   | `pdf`                         |
 | `description`   | 是   | Skill 描述,帮助 AI 理解何时使用，要求简短明了 | `PDF 文档处理专家` |
 
----
+<div class="mt-10" />
 
-## 建议使用 skill-creator skill 创建技能
+**建议使用 skill-creator skill 创建技能**
 
 [skill-creator skill](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) 可以指导你创建结构清晰的技能。它会提出一些澄清问题，建议改进描述，并帮助您正确地格式化说明。
 
@@ -146,6 +158,18 @@ description: PDF 文档处理专家
 # 渐进式披露机制
 
 为了提高 Claude 的效率，Agent Skills 采用[渐进式披露机制 ](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)。在处理任务时，Claude 首先扫描 Skills 的元数据（描述和摘要）以识别相关匹配项。如果找到匹配的技能，Claude 会加载完整的指令（SKILL.md）。最后，如果技能包含可执行代码或引用文件，则仅在需要时才加载这些文件。
+
+```md
+Level 1: SKILL.md 元数据（name + description）
+
+         ↓ 提示词匹配上 description
+
+Level 2: SKILL.md 完整内容（指令）
+
+         ↓ 当 Agent 认为需要加载额外资源时
+
+Level 3: reference, assets, scripts 中的具体文件（按需读取）
+```
 
 ---
 
@@ -171,13 +195,13 @@ Skills 的渐进式披露架构带来了极高的 token 效率。由于每个技
 
 **可复用性**
 
-1. skills 本质还是提示词，你可以将特定领域的最佳实践和操作流程封装成可复用的技能，减少重复提示词工程时间。
+1. skills 本质还是提示词工程，你可以将特定领域的最佳实践和操作流程封装成可复用的技能，减少重复提示词工程时间。
 2. 你可以在团队中共享 Skills，减少重复劳动，提高团队效率。
 3. 因为 skills 是标准化的，所以可以被其他 AI Agent 复用。
 
 ---
 
-# 在前端开发的应用 - 快速开发列表页面
+# 在前端开发中的应用 - 快速开发列表页面
 
 ---
 
@@ -260,9 +284,9 @@ openai: https://github.com/openai/skills
 | Algorithmic Art | 使用 p5.js 创建生成式艺术 |
 | Slack GIF Creator | 针对 Slack 限制的动画优化 |
 | Theme Factory | 为工件应用专业主题 |
-| Canvas Design | 排版和字体集成 |
+| Canvas Design | 画布式视觉设计，如海报、艺术品 |
 | Frontend Design | 创建具有独特性、生产级且美观的前端界面 |
-| Brand Guidelines | 一致的视觉标识实现 |
+| Brand Guidelines | 品牌指南应用，一致的视觉标识实现 |
 
 ---
 
@@ -284,9 +308,9 @@ openai: https://github.com/openai/skills
 
 **架构定位：**
 
-MCP：连接外部系统的"桥梁"（What - 提供什么数据/能力）
+MCP：连接外部系统的"桥梁"， 定义 Agent 如何以统一方式调用外部的工具、数据和服务，本身不定义任务逻辑或执行流程。（What - 提供什么数据/能力）
 
-Skills：使用这些能力的"说明书"（How - 如何使用）
+Skills：使用这些能力的"说明书"，教 Agent 如何完整处理特定工作（How - 如何使用）
 
 **形象比喻：**
 
