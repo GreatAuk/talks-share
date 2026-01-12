@@ -1,16 +1,20 @@
 {
-  "name": "talks-share",
-  "type": "module",
-  "private": true,
+  "name": "slidev-workspace-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "slidev build *.md",
-    "dev": "slidev slides2.md --open",
-    "export": "slidev export"
+    "export-og": "slidev-workspace export-og",
+    "preview": "slidev-workspace preview",
+    "build": "slidev-workspace build"
   },
   "dependencies": {
-    "@slidev/cli": "^52.11.2",
-    "@slidev/theme-default": "latest",
-    "@slidev/theme-seriph": "latest",
-    "vue": "^3.5.26"
+    "slidev-workspace": "^0.7.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "playwright-chromium": "^1.56.1"
   }
 }
