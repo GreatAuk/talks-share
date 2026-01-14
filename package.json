@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@iconify-json/icon-park-outline": "^1.2.4",
     "playwright-chromium": "^1.56.1"
   }
 }
