@@ -490,3 +490,9 @@ class: text-center
 ---
 
 # END
+
+---
+
+<div class="w-25% mx-auto">
+  <img src="https://utopia1994.oss-cn-shanghai.aliyuncs.com/img-bed/202601151539949.png" class="w-full" />
+</div>
