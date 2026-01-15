@@ -91,9 +91,9 @@ Skills 类似于为 AI 助手提供的"专业培训"。通过 Skill，您可以�
 
 <div />
 
-2025-12-18，Anthropic 已为 Agent Skills 定义了[开放标准](https://agentskills.io/home)，托管在 [agentskills.io](https://agentskills.io/home) 上。类似 MCP 的标准化路径，这意味着其他 AI coding agent 也可以使用 Agent Skills，并且社区贡献，复用会更加方便。
-
 <v-clicks>
+
+2025-12-18，Anthropic 已为 Agent Skills 定义了[开放标准](https://agentskills.io/home)，托管在 [agentskills.io](https://agentskills.io/home) 上。类似 MCP 的标准化路径，这意味着其他 AI coding agent 也可以使用 Agent Skills，并且社区贡献，复用会更加方便。
 
 目前，Claude Code，Cursor(beta)， Gemini CLI，Google Antigravity， VSCode Copilot， Codex， CodeBuddy(腾讯)， opencode 已支持。 相信国内的 AI coding agent 后期也会像支持 MCP 一样跟进支持 Agent Skills。
 
@@ -102,6 +102,10 @@ Skills 类似于为 AI 助手提供的"专业培训"。通过 Skill，您可以�
 <v-clicks>
 
 如果你目前使用的 AI coding agent 暂不支持 Skills，通过安装 [OpenSkills](https://github.com/numman-ali/openskills) 也可以使用 Agent Skills。
+
+<div class="w-45% mx-auto">
+  <img src="https://utopia1994.oss-cn-shanghai.aliyuncs.com/img-bed/202601150925151.png" class="w-full" />
+</div>
 
 </v-clicks>
 
@@ -178,9 +182,7 @@ pip install pypdf pdfplumber
 
 **建议使用 skill-creator skill 创建 Skill**
 
-[skill-creator skill](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) 可以指导你创建结构清晰的技能。
-
-它能通过引导式对话，帮助用户将脑海中的想法或纸面上的 SOP 自动转化为符合标准的 SKILL.md 文件。对于你最初创建的几个技能尤其有用。
+[skill-creator skill](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) 它通过引导式对话, 指导你创建结构清晰的技能，对于你最初创建的几个技能尤其有用。
 
 </v-clicks>
 
@@ -319,15 +321,23 @@ Q:  为什么不让 ai 直接生成代码，让他自由发挥？
 
 # 一些主流的 Agent Skills
 
+<v-clicks>
+
 - anthropics: https://github.com/anthropics/skills
 
 - openai: https://github.com/openai/skills
 
 - 智普：https://github.com/AnswerZhao/agent-skills 并没有开源，[如何获取](https://mp.weixin.qq.com/s/bCPxerWFH_VUchqGXTK1tg)
 
+- react-best-practices(Vercel): https://github.com/vercel-labs/agent-skills
+
 - skillmp: https://skillsmp.com/zh （63,295 个 skill）
 
 - superpowers: https://github.com/obra/superpowers
+
+- planning-with-files: https://github.com/OthmanAdi/planning-with-files
+
+</v-clicks>
 
 ---
 transition: slide-up
@@ -341,10 +351,10 @@ transition: slide-up
 
 | 技能 | 描述 |
 | :--- | :--- |
-| DOCX | 全面的 Word 文档创建、编辑和分析 |
-| PDF | PDF 文本提取、表单填写和文档转换 |
-| PPTX | PowerPoint 演示文稿创建和设计 |
-| XLSX | 电子表格操作和公式重新计算 |
+| DOCX | 创建、编辑和分析 Word 文档，支持跟踪更改、批注和格式设置。 |
+| PDF | 用于提取文本/表格、创建 PDF、合并/拆分文档的 PDF 处理工具包 |
+| PPTX | 使用布局、模板和图表创建、编辑和分析 PowerPoint 演示文稿 |
+| XLSX | 使用公式、格式设置和数据分析创建、编辑和分析 Excel 电子表格 |
 
 ---
 transition: slide-up
@@ -365,12 +375,12 @@ transition: slide-up
 
 | 技能 | 描述 |
 | :--- | :--- |
-| Algorithmic Art | 使用 p5.js 创建生成式艺术 |
-| Slack GIF Creator | 针对 Slack 限制的动画优化 |
+| Algorithmic Art | 使用 p5.js 创建生成式艺术(流场和粒子动画) |
+| Slack GIF Creator | 建针对 Slack 大小限制优化的动画 GIF |
 | Theme Factory | 为工件应用专业主题 |
-| Canvas Design | 画布式视觉设计，如海报、艺术品 |
+| Canvas Design | 运用设计理念，设计 PNG 和 PDF 格式的视觉艺术作品 |
 | Frontend Design | 创建具有独特性、生产级且美观的前端界面 |
-| Brand Guidelines | 品牌指南应用，一致的视觉标识实现 |
+| Brand Guidelines | 将 Anthropic 的官方品牌颜色和字体应用到视觉作品中 |
 
 ---
 transition: slide-up
